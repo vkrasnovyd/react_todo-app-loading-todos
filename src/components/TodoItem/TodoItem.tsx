@@ -2,18 +2,21 @@
 import classNames from 'classnames';
 import { Todo } from '../../types/Todo';
 import { TodoLoader } from '../TodoLoader';
+import { RefObject } from 'react';
 
 interface Props {
   todo: Todo;
+  nodeRef: RefObject<HTMLDivElement>;
 }
 
-export const TodoItem: React.FC<Props> = ({ todo }) => {
+export const TodoItem: React.FC<Props> = ({ todo, nodeRef }) => {
   const loading = false;
   const editing = false;
 
   return (
     <div
       data-cy="Todo"
+      ref={nodeRef}
       className={classNames('todo', { completed: !!todo.completed })}
     >
       <label className="todo__status-label">

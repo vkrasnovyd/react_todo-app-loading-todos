@@ -6,6 +6,8 @@ import { TodoItem } from './components/TodoItem';
 import { Footer } from './components/Footer';
 import { TodoStatusOption } from './types/TodoStatusOption';
 import classNames from 'classnames';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { TodoList } from './components/TodoList';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -88,11 +90,7 @@ export const App: React.FC = () => {
           </form>
         </header>
 
-        <section className="todoapp__main" data-cy="TodoList">
-          {visibleTodos.map((todo: Todo) => (
-            <TodoItem todo={todo} key={todo.id} />
-          ))}
-        </section>
+        <TodoList visibleTodos={visibleTodos} />
 
         {!!todos.length && <Footer allTodos={todos} currentFilter={filter} />}
       </div>
