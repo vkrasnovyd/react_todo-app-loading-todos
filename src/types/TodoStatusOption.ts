@@ -4,6 +4,8 @@ export enum TodoStatusOptions {
   COMPLETED = 'completed',
 }
 
-export const todoStatusOptions = Object.values(TodoStatusOptions);
+export const todoStatusOptions = Object.values(
+  TodoStatusOptions,
+) as TodoStatusOption[];
 
-export type TodoStatusOption = (typeof todoStatusOptions)[number];
+export type TodoStatusOption = `${TodoStatusOptions}`;
