@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { getTodos } from './api/todos';
 import { Todo } from './types/Todo';
 import { TodoItem } from './components/TodoItem';
@@ -12,6 +12,7 @@ export const App: React.FC = () => {
   const [filter, setFilter] = useState<TodoStatusOption>('all');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const newTodoField = useRef<HTMLInputElement>(null);
 
   const getWindowHash = (): TodoStatusOption => {
     const hash = window.location.hash.slice(2);
@@ -28,6 +29,10 @@ export const App: React.FC = () => {
     setFilter(getWindowHash());
 
     return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  useEffect(() => {
+    newTodoField.current?.focus();
   }, []);
 
   useEffect(() => {
@@ -78,6 +83,7 @@ export const App: React.FC = () => {
               type="text"
               className="todoapp__new-todo"
               placeholder="What needs to be done?"
+              ref={newTodoField}
             />
           </form>
         </header>
