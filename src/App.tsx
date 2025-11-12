@@ -2,16 +2,18 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { getTodos } from './api/todos';
 import { Todo } from './types/Todo';
-import { TodoItem } from './components/TodoItem';
 import { Footer } from './components/Footer';
-import { TodoStatusOption } from './types/TodoStatusOption';
+import {
+  TodoStatusOption,
+  todoStatusOptions,
+  TodoStatusOptions,
+} from './types/TodoStatusOption';
 import classNames from 'classnames';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { TodoList } from './components/TodoList';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [filter, setFilter] = useState<TodoStatusOption>('all');
+  const [filter, setFilter] = useState<TodoStatusOption>(TodoStatusOptions.ALL);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const newTodoField = useRef<HTMLInputElement>(null);
@@ -19,9 +21,9 @@ export const App: React.FC = () => {
   const getWindowHash = (): TodoStatusOption => {
     const hash = window.location.hash.slice(2);
 
-    return ['all', 'active', 'completed'].includes(hash)
+    return todoStatusOptions.includes(hash)
       ? (hash as TodoStatusOption)
-      : 'all';
+      : TodoStatusOptions.ALL;
   };
 
   useEffect(() => {
@@ -51,9 +53,9 @@ export const App: React.FC = () => {
 
   const visibleTodos = useMemo(() => {
     switch (filter) {
-      case 'active':
+      case TodoStatusOptions.ACTIVE:
         return todos.filter(t => !t.completed);
-      case 'completed':
+      case TodoStatusOptions.COMPLETED:
         return todos.filter(t => t.completed);
       default:
         return todos;

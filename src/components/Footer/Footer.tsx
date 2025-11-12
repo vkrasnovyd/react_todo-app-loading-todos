@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { Todo } from '../../types/Todo';
 import {
   TodoStatusOption,
+  TodoStatusOptions,
   todoStatusOptions,
 } from '../../types/TodoStatusOption';
 
@@ -27,7 +28,7 @@ export const Footer: React.FC<Props> = ({ allTodos, currentFilter }) => {
         {todoStatusOptions.map(option => {
           const capitalizedOption =
             option.charAt(0).toUpperCase() + option.slice(1);
-          const urlSuffix = option === 'all' ? '' : option;
+          const urlSuffix = option === TodoStatusOptions.ALL ? '' : option;
 
           return (
             <a
