@@ -25,7 +25,7 @@ export const TodoItem: React.FC<Props> = ({ todo, nodeRef }) => {
           type="checkbox"
           className="todo__status"
           checked={!!todo.completed}
-          readOnly // TODO: Replace with onChange
+          readOnly
         />
       </label>
 
