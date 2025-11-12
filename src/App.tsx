@@ -42,7 +42,10 @@ export const App: React.FC = () => {
     setError('');
     getTodos()
       .then((fetchedTodos: Todo[]) => setTodos(fetchedTodos))
-      .catch(() => setError('Unable to load todos'))
+      .catch(() => {
+        setError('Unable to load todos');
+        setTimeout(() => setError(''), 3000);
+      })
       .finally(() => setLoading(false));
   }, []);
 
