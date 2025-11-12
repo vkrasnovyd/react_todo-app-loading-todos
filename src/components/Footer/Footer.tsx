@@ -12,8 +12,16 @@ interface Props {
 }
 
 export const Footer: React.FC<Props> = ({ allTodos, currentFilter }) => {
-  const activeTodos = allTodos.filter(t => !t.completed);
-  const completedTodos = allTodos.filter(t => t.completed);
+  const activeTodos: Todo[] = [];
+  const completedTodos: Todo[] = [];
+
+  allTodos.forEach(todo => {
+    if (todo.completed) {
+      completedTodos.push(todo);
+    } else {
+      activeTodos.push(todo);
+    }
+  });
 
   return (
     <footer
